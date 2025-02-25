@@ -17,7 +17,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       ? parseInt(req.query.resultOffset, 10)
       : 0;
 
-  const field = req.query.field in sortBy ? (req.query.field as string) : "confirmed";
+  const field = (req.query.field as string)  in sortBy ? (req.query.field as string) : "confirmed";
   const query = createSortQuery(createCountySortGroup(field), { resultOffset });
   const response = await fetcher(`${endpoint}?${qs.stringify(query)}`);
   const data = await response.json();
